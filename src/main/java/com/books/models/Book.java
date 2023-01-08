@@ -13,6 +13,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 // This is our Domain Model and Validation methods.
 @Entity
@@ -33,7 +35,9 @@ public class Book {
 	private Integer numberOfPages;
 	// This will not allow the createdAt column to be updated after creation.
 	@Column(updatable=false)
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date createdAt;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date updatedAt;
 	
 	@PrePersist
@@ -102,9 +106,7 @@ public class Book {
 		this.updatedAt = updatedAt;
 	}
 	
-	public Book() {
-		
-	}
+	public Book() {}
 	
 	public Book(String title, String description, String language, Integer numberOfPages) {
 		this.title = title;

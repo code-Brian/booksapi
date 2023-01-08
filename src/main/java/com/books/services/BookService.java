@@ -1,8 +1,9 @@
 package com.books.services;
 
-import java.util.Optional;
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.books.models.Book;
@@ -10,12 +11,9 @@ import com.books.repositories.BookRepository;
 
 @Service
 public class BookService {
-	public BookService(BookRepository bookRepository) {
-		super();
-		this.bookRepository = bookRepository;
-	}
-	// inject the book repository here
-	private final BookRepository bookRepository;
+	// Injects the book repository dependency here
+	@Autowired
+	private BookRepository bookRepository;
 	
 	// returns all the books
     public List<Book> allBooks() {
@@ -33,5 +31,15 @@ public class BookService {
         } else {
             return null;
         }
+    }
+
+    // update a book
+    public Book updateBook(Book b) {
+    	return bookRepository.save(b);
+    }
+    
+    // delete a book
+    public void deleteBook(Long id) {
+    	bookRepository.deleteById(id);
     }
 }
